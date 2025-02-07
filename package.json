@@ -1,0 +1,31 @@
+{
+  "name": "user-list-app",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --fix --ignore-path .gitignore"
+  },
+  "dependencies": {
+    "@mdi/font": "7.4.47",
+    "pinia": "^2.3.1",
+    "roboto-fontface": "*",
+    "vue": "^3.5.13",
+    "vue-router": "^4.5.0",
+    "vuetify": "^3.7.11"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.1",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "@vue/eslint-config-typescript": "^14.3.0",
+    "eslint-plugin-vue": "^9.32.0",
+    "sass": "^1.84.0",
+    "terser": "^5.38.1",
+    "typescript": "^5.7.3",
+    "vite": "^6.1.0",
+    "vite-plugin-vuetify": "^2.1.0",
+    "vue-tsc": "^2.2.0"
+  }
+}
