@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import router from '@/router'
+import { useDisplay } from 'vuetify';
+
+const { smAndDown } = useDisplay()
 
 const drawer = ref(false);
 const items = ref([
@@ -19,7 +22,8 @@ const handleNavigation = (path: string) => {
 
 <template>
   <v-card 
-    class="elevation-0 pa-10"
+    class="elevation-0"
+    :class="smAndDown ? 'pa-4' : 'pa-8'"
     style="height: 100%;"
   >
     <v-layout>

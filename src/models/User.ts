@@ -1,5 +1,5 @@
 import { apiService } from '@/services/ApiService'
-import { IUser } from '@/types/other'
+import { ICompany, IUser } from '@/types/other'
 
 export default class User {
   id: number
@@ -8,7 +8,7 @@ export default class User {
   email: string
   phone: string
   website: string
-  formattedAddress?: string
+  company: ICompany | undefined
 
   constructor(user: IUser) {
     this.id = user.id
@@ -17,6 +17,7 @@ export default class User {
     this.email = user.email
     this.phone = user.phone
     this.website = user.website
+    this.company = user.company
   }
 
   static async fetch(params?: any) {
@@ -25,7 +26,7 @@ export default class User {
   }
 
   static async fetchById(id: number) {
-    const response = await apiService.get<IUser>(`https://jsonplaceholder.typicode.com/users/${id}`)
+    const response = await apiService.get<IUser>(`users/${id}`)
     return new User(response.data)
   }
 }

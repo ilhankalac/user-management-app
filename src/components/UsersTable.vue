@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useFetchUsers } from '@/composables/useFetchData'
+import User from '@/models/User'
 import router from '@/router'
-import { IUser } from '@/types/other'
 import { onBeforeMount, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useDisplay } from 'vuetify'
@@ -50,13 +50,13 @@ const headers = [
     sortable: false
   },
   {
-    title: 'Website',
-    key: 'website',
-    sortable: true
+    title: 'Company',
+    key: 'company.name',
+    sortable: false
   }
 ]
 
-function goToUserDetails(user: IUser) {
+function goToUserDetails(user: User) {
   router.push({ 
     name: 'userDetails', 
     params: { 
@@ -72,10 +72,13 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <v-card class="items-wrapper">
+  <v-card 
+    class="items-wrapper"
+    variant="flat"
+  >
     <v-divider class="mb-7" />
 
-    <v-row class="my-3 px-6 d-flex align-center">
+    <v-row>
       <v-col class="d-flex align-top">
         <v-icon
           class="mr-2"
@@ -134,10 +137,6 @@ onBeforeMount(async () => {
 
       <template #item.phone="{ item }">
         {{ item.phone }}
-      </template>
-
-      <template #item.website="{ item }">
-        {{ item.website }}
       </template>
     </v-data-table-server>
   </v-card>
