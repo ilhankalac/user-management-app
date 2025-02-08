@@ -1,10 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import Users from '@/views/Users.vue'
 
 const routes = [
   {
     path: '/',
     component: () => import('@/layouts/AppLayout.vue'),
-    name: 'AppLayout',
+    name: 'AppLayout', 
+    children: [
+      {
+        path: '/users',
+        component: Users,
+      }        
+    ]
   },
 ]
 

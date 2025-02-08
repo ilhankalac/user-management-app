@@ -1,13 +1,35 @@
+<script setup lang="ts">
+import { ref } from 'vue';
+import router from '@/router'
+
+const drawer = ref(false);
+const items = ref([
+  {
+    title: 'Users',
+    value: 'users',
+    prependIcon: 'mdi-account-group',
+  },
+]);
+
+const handleNavigation = (path: string) => {
+  router.push({ path });
+  drawer.value = false; 
+};
+</script>
+
 <template>
   <v-card 
-    class="elevation-0"
+    class="elevation-0 pa-10"
     style="height: 100%;"
   >
     <v-layout>
       <v-app-bar color="primary">
         <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
-        <v-toolbar-title>Users</v-toolbar-title>
+        <v-toolbar-title class="d-flex align-center">
+          <v-icon class="mr-2">mdi-account-group</v-icon>
+          {{ $route.name || 'Users' }}
+        </v-toolbar-title>
 
         <v-spacer></v-spacer>
 
@@ -21,41 +43,23 @@
         :location="$vuetify.display.mobile ? 'bottom' : undefined"
         temporary
       >
-        <v-list
-          :items="items"
-        ></v-list>
+        <v-list>
+          <v-list-item
+            v-for="item in items"
+            :key="item.value"
+            :value="item.value"
+            :prepend-icon="item.prependIcon"
+            :title="item.title"
+            @click="handleNavigation(`/${item.value}`)"
+            :active="$route.path === `/${item.value}`"
+          >
+          </v-list-item>
+        </v-list>
       </v-navigation-drawer>
 
-      <v-main>
-          <router-view />
+      <v-main style="height: 100vh;">
+        <router-view />
       </v-main>
     </v-layout>
   </v-card>
 </template>
-
-<script setup lang="ts">
-import { ref, watch } from 'vue';
-
-const drawer = ref(false);
-const group = ref<string | null>(null);
-const items = ref([
-  {
-    title: 'Users',
-    value: 'users',
-  },
-]);
-</script>
-
-<style>
-:root {
-  height: 100%;
-}
-body {
-	/* background-color: rgba(var(--v-theme-primary)); */
-  font-size: 1rem !important;
-  /* Smaller font size for mobile devices */
-  @media (max-width: 600px) {
-    font-size: 0.9rem !important;
-  }
-}
-</style>
