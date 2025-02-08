@@ -37,3 +37,35 @@ export function useFetchUsers() {
     ready
   }
 }
+
+export function useFetchUser() {
+  const user = ref<User | null>(null)
+  const error = ref<Error | null>(null)
+  const loading = ref(false)
+  const ready = ref(false)
+
+  const fetchUser = async (id: string) => {
+    if (loading.value) return
+
+    loading.value = true
+    error.value = null
+
+    try {
+      user.value = await User.fetchById(id)
+      ready.value = true
+    } catch (err) {
+      error.value = err instanceof Error ? err : new Error('Failed to fetch user')
+      user.value = null
+    } finally {
+      loading.value = false
+    }
+  }
+
+  return {
+    user,
+    error,
+    loading,
+    fetchUser,
+    ready
+  }
+} 

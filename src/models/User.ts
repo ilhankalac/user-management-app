@@ -25,7 +25,7 @@ export default class User {
     return response.data.map(user => new User(user))
   }
 
-  static async fetchById(id: number) {
+  static async fetchById(id: string) {
     const response = await apiService.get<IUser>(`users/${id}`)
     return new User(response.data)
   }

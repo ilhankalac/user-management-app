@@ -58,7 +58,7 @@ const headers = [
 
 function goToUserDetails(user: User) {
   router.push({ 
-    name: 'userDetails', 
+    name: 'UserDetails', 
     params: { 
       id: user.id
     } 
