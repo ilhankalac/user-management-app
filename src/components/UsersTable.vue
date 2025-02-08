@@ -1,17 +1,10 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import { useFetchUsers } from '@/composables/useFetchData'
+import router from '@/router'
+import { IUser } from '@/types/other'
+import { onBeforeMount, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useDisplay } from 'vuetify'
-
-interface IUser {
-  id: number
-  name: string
-  email: string
-  phone: string
-  company: {
-    name: string
-  }
-}
 
 interface TableFilters {
   page: number
@@ -20,36 +13,11 @@ interface TableFilters {
   search: string
 }
 
-const users = ref<IUser[]>([
-  {
-    id: 1,
-    name: "Leanne Graham",
-    email: "Sincere@april.biz",
-    phone: "1-770-736-8031 x56442",
-    company: { name: "Romaguera-Crona" }
-  },
-  {
-    id: 2,
-    name: "Ervin Howell",
-    email: "Shanna@melissa.tv",
-    phone: "010-692-6593 x09125",
-    company: { name: "Deckow-Crist" }
-  },
-  {
-    id: 3,
-    name: "Clementine Bauch",
-    email: "Nathan@yesenia.net",
-    phone: "1-463-123-4447",
-    company: { name: "Romaguera-Jacobson" }
-  }
-])
+const { fetchUsers, users, ready, loading } = useFetchUsers()
 
-const router = useRouter()
-const { smAndDown } = useDisplay()
-
-const loading = ref(false)
-const ready = ref(true)
 const search = ref('')
+
+const { smAndDown } = useDisplay()
 
 const itemsPerPageOptions = [
   { value: 5, title: '5' },
@@ -82,8 +50,8 @@ const headers = [
     sortable: false
   },
   {
-    title: 'Company',
-    key: 'company.name',
+    title: 'Website',
+    key: 'website',
     sortable: true
   }
 ]
@@ -97,11 +65,8 @@ function goToUserDetails(user: IUser) {
   })
 }
 
-async function handleSearch(criteria: { search: string }) {
-  search.value = criteria.search
-}
-
-onMounted(() => {
+onBeforeMount(async () => {
+  await fetchUsers()
   ready.value = true
 })
 </script>
@@ -171,8 +136,8 @@ onMounted(() => {
         {{ item.phone }}
       </template>
 
-      <template #item.company.name="{ item }">
-        {{ item.company.name }}
+      <template #item.website="{ item }">
+        {{ item.website }}
       </template>
     </v-data-table-server>
   </v-card>

@@ -25,7 +25,7 @@ export default class User {
   }
 
   static async fetchById(id: number) {
-    const response = await apiService.get<IUser>(`users/${id}`)
+    const response = await apiService.get<IUser>(`https://jsonplaceholder.typicode.com/users/${id}`)
     return new User(response.data)
   }
 }
