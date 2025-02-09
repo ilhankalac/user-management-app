@@ -86,8 +86,10 @@ onBeforeMount(async () => {
           label="Search by name, email, phone, or any other field..."
           variant="outlined"
           density="compact"
+          :max-width="smAndDown ? '100%' : '500'"
           hide-details
           clearable
+          prepend-inner-icon="mdi-magnify"
         />
       </v-col>
     </v-row>

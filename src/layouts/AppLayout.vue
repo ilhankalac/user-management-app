@@ -32,14 +32,8 @@ const handleNavigation = (path: string) => {
 
         <v-toolbar-title class="d-flex align-center">
           <v-icon class="mr-2">mdi-account-group</v-icon>
-          {{ $route.name || 'Users' }}
+          <span>{{ $route.name || 'Users' }}</span>
         </v-toolbar-title>
-
-        <v-spacer></v-spacer>
-
-        <template v-if="$vuetify.display.mdAndUp">
-          <v-btn icon="mdi-magnify" variant="text"></v-btn>
-        </template>
       </v-app-bar>
 
       <v-navigation-drawer
