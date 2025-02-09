@@ -64,25 +64,31 @@ onBeforeMount(async () => {
     <v-divider class="mb-7" />
 
     <v-row>
-      <v-col class="d-flex align-top">
-        <v-icon
-          class="mr-2"
-          icon="mdi-account-group"
-          size="20"
-        />
-        <div
-          class="info-message"
-          data-cy="user-management-description"
-        >
-          View and manage system users.
-        </div>
-      </v-col>
-      <v-col
+      <v-col 
         class="d-flex"
-        :class="smAndDown ? 'justify-center' : 'justify-end'"
-        cols="12"
-        md="8"
+        :class="smAndDown ? 'flex-column ga-2' : 'justify-space-between ga-10'"
       >
+        <div class="d-flex align-center">
+          <v-icon
+            class="mr-2"
+            icon="mdi-account-group"
+            size="20"
+          />
+          <div
+            class="info-message"
+            data-cy="user-management-description"
+          >
+            View and manage system users.
+          </div>
+        </div>
+        <v-text-field 
+          v-model="search"
+          label="Search by name, email, phone, or any other field..."
+          variant="outlined"
+          density="compact"
+          hide-details
+          clearable
+        />
       </v-col>
     </v-row>
 
