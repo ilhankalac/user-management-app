@@ -26,4 +26,7 @@ export default defineConfig({
     },
     extensions: ['.js', '.json', '.jsx', '.mjs', '.ts', '.tsx', '.vue']
   },
+  build: {
+    outDir: 'dist'
+  }
 })
