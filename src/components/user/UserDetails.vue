@@ -9,6 +9,7 @@ const router = useRouter()
 const { fetchUser, user, loading, error } = useFetchUser()
 
 onBeforeMount(async () => {
+  window.scrollTo(0, 0)
   if (typeof route.params.id === 'string') {
     await fetchUser(route.params.id)
   }
