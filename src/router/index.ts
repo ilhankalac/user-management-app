@@ -4,11 +4,16 @@ const routes = [
   {
     path: '/',
     component: () => import('@/layouts/AppLayout.vue'),
-    name: 'AppLayout', 
     children: [
+      {
+        path: '',
+        redirect: '/users',
+        name: 'Home'
+      },
       {
         path: '/users',
         component: () => import('@/views/Users.vue'),
+        name: 'Users'
       },
       {
         path: '/users/:id',
@@ -17,6 +22,10 @@ const routes = [
       }
     ]
   },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/users'
+  }
 ]
 
 const router = createRouter({

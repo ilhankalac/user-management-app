@@ -4,7 +4,7 @@ export interface ICompany {
   bs: string
 }
 
-interface IAddress {
+export interface IAddress {
   street: string
   suite: string
   city: string
