@@ -4,6 +4,13 @@ export interface ICompany {
   bs: string
 }
 
+interface IAddress {
+  street: string
+  suite: string
+  city: string
+  zipcode: string
+}
+
 export interface IUser {
   id: number
   name: string
@@ -12,4 +19,5 @@ export interface IUser {
   phone: string
   website: string
   company: ICompany
+  address: IAddress
 }

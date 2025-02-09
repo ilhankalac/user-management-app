@@ -1,5 +1,5 @@
 import { apiService } from '@/services/ApiService'
-import { ICompany, IUser } from '@/types/other'
+import { IAddress, ICompany, IUser } from '@/types/other'
 
 export default class User {
   id: number
@@ -8,7 +8,8 @@ export default class User {
   email: string
   phone: string
   website: string
-  company: ICompany | undefined
+  company: ICompany
+  address: IAddress
 
   constructor(user: IUser) {
     this.id = user.id
@@ -18,6 +19,7 @@ export default class User {
     this.phone = user.phone
     this.website = user.website
     this.company = user.company
+    this.address = user.address
   }
 
   static async fetch(params?: any) {
