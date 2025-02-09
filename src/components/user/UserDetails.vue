@@ -33,81 +33,70 @@ const formatAddress = (address: IAddress): string => {
       />
       Back
     </v-btn>
-    <v-card
-      class="pb-8"
-      max-width="600" 
-    >
-      <v-card-title 
-        class="text-h5 mb-4 card-title"
-      >
+    
+    <v-card class="pb-8" max-width="600">
+      <v-card-title class="text-h5 mb-4 card-title">
         User Details
       </v-card-title>
 
-      <template v-if="loading">
-        <v-skeleton-loader type="card" />
-      </template>
+      <v-skeleton-loader 
+        v-if="loading" 
+        type="card" 
+      />
+      
+      <v-alert 
+        v-else-if="error" 
+        type="error" 
+        text="Error loading user details" 
+      />
+      
+      <v-alert 
+        v-else-if="!user" 
+        type="error">
+        User not found
+      </v-alert>
+      
+      <v-list v-else>
+        <v-list-item>
+          <v-icon icon="mdi-account-box" class="mr-2" />
+          {{ user.name }}
+        </v-list-item>
+        
+        <v-list-item>
+          <v-icon icon="mdi-account" class="mr-2" />
+          {{ user.username }}
+        </v-list-item>
 
-      <template v-else-if="error">
-        <v-alert type="error" text="Error loading user details" />
-      </template>
+        <v-list-item>
+          <v-icon icon="mdi-email" class="mr-2" />
+          {{ user.email }}
+        </v-list-item>
 
-      <template v-else-if="user">
-        <v-list>
-          <v-list-item>
-            <template #prepend>
-              <v-icon icon="mdi-account-box" />
-            </template>
-            <v-list-item-title>{{ user.name }}</v-list-item-title>
-          </v-list-item>
-          
-          <v-list-item>
-            <template #prepend>
-              <v-icon icon="mdi-account" />
-            </template>
-            <v-list-item-title>{{ user.username }}</v-list-item-title>
-          </v-list-item>
+        <v-list-item>
+          <v-icon icon="mdi-phone" class="mr-2" />
+          {{ user.phone }}
+        </v-list-item>
 
-          <v-list-item>
-            <template #prepend>
-              <v-icon icon="mdi-email" />
-            </template>
-            <v-list-item-title>{{ user.email }}</v-list-item-title>
-          </v-list-item>
+        <v-list-item>
+          <v-icon icon="mdi-web" class="mr-2" />
+          {{ user.website }}
+        </v-list-item>
 
-          <v-list-item>
-            <template #prepend>
-              <v-icon icon="mdi-phone" />
-            </template>
-            <v-list-item-title>{{ user.phone }}</v-list-item-title>
-          </v-list-item>
+        <v-list-item>
+          <v-icon icon="mdi-map-marker" class="mr-2" />
+          {{ formatAddress(user.address) }}
+        </v-list-item>
 
-          <v-list-item>
-            <template #prepend>
-              <v-icon icon="mdi-web" />
-            </template>
-            <v-list-item-title>{{ user.website }}</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item>
-            <template #prepend>
-              <v-icon icon="mdi-map-marker" />
-            </template>
-            <v-list-item-title>{{ formatAddress(user.address) }}</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item v-if="user.company">
-            <template #prepend>
-              <v-icon icon="mdi-office-building" />
-            </template>
-            <v-list-item-title>{{ user.company.name }}</v-list-item-title>
-            <v-list-item-subtitle>{{ user.company.catchPhrase }}</v-list-item-subtitle>
-          </v-list-item>
-        </v-list>
-      </template>
-
-      <template v-else>
-        <v-alert type="error">User not found</v-alert>
-      </template>
+        <v-list-item v-if="user.company">
+          <div class="d-flex align-center">
+            <v-icon icon="mdi-office-building" class="mr-2" />
+            <div>
+              <div class="font-weight-medium">{{ user.company.name }}</div>
+              <div class="text-caption text-muted">{{ user.company.catchPhrase }}</div>
+            </div>
+          </div>
+        </v-list-item>
+      </v-list>
     </v-card>
   </v-container>
 </template>
