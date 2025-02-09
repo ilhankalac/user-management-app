@@ -1,6 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Users from '@/views/Users.vue'
-import UserDetails from '@/components/UserDetails.vue'
 
 const routes = [
   {
@@ -10,11 +8,11 @@ const routes = [
     children: [
       {
         path: '/users',
-        component: Users,
+        component: () => import('@/views/Users.vue'),
       },
       {
         path: '/users/:id',
-        component: UserDetails,
+        component: () => import('@/components/user/UserDetails.vue'),
         name: 'UserDetails',
       }
     ]

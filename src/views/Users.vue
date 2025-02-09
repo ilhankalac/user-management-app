@@ -11,5 +11,5 @@
 </template>
 
 <script lang="ts" setup>
-import UsersTable from '@/components/UsersTable.vue';
+import UsersTable from '@/components/user/UsersTable.vue';
 </script>
