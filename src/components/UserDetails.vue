@@ -54,7 +54,16 @@ onBeforeMount(async () => {
         </v-list>
 
         <v-card-actions>
-          <v-btn @click="$router.back()">Back</v-btn>
+          <v-btn 
+            variant="plain"
+            @click="$router.push('/users')"
+          >
+          <v-icon 
+            icon="mdi-arrow-left"
+            class="mr-2"
+          />
+            Back
+          </v-btn>
         </v-card-actions>
       </template>
 
