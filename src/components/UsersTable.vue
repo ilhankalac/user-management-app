@@ -3,15 +3,7 @@ import { useFetchUsers } from '@/composables/useFetchData'
 import User from '@/models/User'
 import router from '@/router'
 import { onBeforeMount, ref } from 'vue'
-import { useRouter } from 'vue-router'
 import { useDisplay } from 'vuetify'
-
-interface TableFilters {
-  page: number
-  itemsPerPage: number
-  sortBy: any
-  search: string
-}
 
 const { fetchUsers, users, ready, loading } = useFetchUsers()
 
@@ -25,13 +17,6 @@ const itemsPerPageOptions = [
   { value: 25, title: '25' },
   { value: 50, title: '50' }
 ]
-
-const filters = ref<TableFilters>({
-  page: 1,
-  itemsPerPage: 10,
-  sortBy: [{ key: 'name', order: 'asc' }],
-  search: ''
-})
 
 const headers = [
   {
@@ -101,19 +86,7 @@ onBeforeMount(async () => {
       </v-col>
     </v-row>
 
-    <template v-if="!ready">
-      <v-skeleton-loader
-        class="mt-3 px-6"
-        type="table"
-        loading
-      />
-    </template>
-    <v-data-table-server
-      v-else
-      v-model:page="filters.page"
-      v-model:items-per-page="filters.itemsPerPage"
-      v-model:sort-by="filters.sortBy"
-      class="mt-3 px-6"
+    <v-data-table
       must-sort
       :items-per-page-options="itemsPerPageOptions"
       :items="users"
@@ -122,25 +95,21 @@ onBeforeMount(async () => {
       :search="search"
       :items-length="users.length"
     >
-      <template #item.name="{ item }">
-        <span
-          class="user-name"
+      <template #item="{ item }">
+        <tr 
           @click="goToUserDetails(item)"
+          class="clickable-row"
         >
-          {{ item.name }}
-        </span>
+          <td>{{ item.name }}</td>
+          <td>{{ item.email }}</td>
+          <td>{{ item.phone }}</td>
+          <td>{{ item.company?.name }}</td>
+        </tr>
       </template>
-
-      <template #item.email="{ item }">
-        {{ item.email }}
-      </template>
-
-      <template #item.phone="{ item }">
-        {{ item.phone }}
-      </template>
-    </v-data-table-server>
+    </v-data-table>
   </v-card>
 </template>
+
 
 <style lang="scss" scoped>
 .rounded-icon-background {
@@ -153,12 +122,12 @@ onBeforeMount(async () => {
   background: #F2F2F2;
 }
 
-.user-name {
-  color: rgba(var(--v-theme-info));
+.clickable-row {
   cursor: pointer;
+  transition: background-color 0.2s ease;
 
   &:hover {
-    text-decoration: underline;
+    background-color: rgba(var(--v-theme-info), 0.1);
   }
 }
 </style>

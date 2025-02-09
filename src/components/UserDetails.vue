@@ -14,7 +14,10 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <v-container>
+  <v-container 
+    fluid 
+    class="ma-0 pa-0"
+  >
     <v-card variant="flat">
       <v-card-title class="text-h5 mb-4">User Details</v-card-title>
 

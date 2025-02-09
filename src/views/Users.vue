@@ -4,7 +4,7 @@
       class="text-primary"
       data-cy="user-management-heading"
     >
-      User Management
+      User List Page
     </h1>
   </div>
   <UsersTable />
