@@ -4,6 +4,18 @@ import User from '@/models/User'
 import router from '@/router'
 import { onBeforeMount, ref } from 'vue'
 import { useDisplay } from 'vuetify'
+// import pinia
+import { useAppStore } from '@/store/app'
+import { storeToRefs } from 'pinia'
+
+const store = useAppStore()
+
+const { loadingItem, contactItems, dataLoaded } = storeToRefs(store)
+
+const { getItems } = store
+
+
+
 
 const { fetchUsers, users, ready, loading } = useFetchUsers()
 
@@ -50,6 +62,11 @@ function goToUserDetails(user: User) {
   })
 }
 
+function fetchContacts() {
+  if(dataLoaded.value) return
+  getItems()
+}
+
 onBeforeMount(async () => {
   await fetchUsers()
   ready.value = true
@@ -57,6 +74,7 @@ onBeforeMount(async () => {
 </script>
 
 <template>
+
   <v-card 
     class="items-wrapper"
     variant="flat"
@@ -105,13 +123,31 @@ onBeforeMount(async () => {
     >
       <template #item="{ item }">
         <tr 
-          @click="goToUserDetails(item)"
           class="clickable-row"
+          @click="goToUserDetails(item)"
         >
-          <td>{{ item.name }}</td>
+          <td>
+            <div class="rounded-icon-background">
+              <v-icon
+                icon="mdi-account"
+                size="20"
+              />
+            </div>
+          {{ item.name }}</td>
           <td>{{ item.email }}</td>
           <td>{{ item.phone }}</td>
           <td>{{ item.company?.name }}</td>
+
+          <v-select
+            :items="contactItems"
+            :loading="loadingItem"
+            :disabled="loadingItem"
+            dense
+            outlined
+            hide-details
+            class="mr-2"
+            @click.stop="fetchContacts"
+          />
         </tr>
       </template>
     </v-data-table>
